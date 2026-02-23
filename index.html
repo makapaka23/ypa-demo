@@ -400,12 +400,12 @@
       }
 
       // Load Retell SDK dynamically
-      if (!window.RetellClientJsSdk) {
+      if (!window.retellClientJsSdk) {
         await loadScript('https://cdn.jsdelivr.net/npm/retell-client-js-sdk@2.0.7/dist/index.umd.js');
       }
       
-      const { RetellWebClient } = window.RetellClientJsSdk;
-      retellClient = new RetellWebClient();
+      const { RetellWebClient } = window.retellClientJsSdk;
+      retellClient = new RetellWebClient();  
 
       retellClient.on('call_started', () => {
         btn.classList.remove('connecting');
