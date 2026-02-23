@@ -404,8 +404,7 @@
       // Log what's available to find the right variable name
       console.log('SDK globals:', Object.keys(window).filter(k => k.toLowerCase().includes('retell')));
       
-      const sdk = window.retellClientJsSdk || window.RetellClientJsSdk || window.RetellWebClient;
-      const RetellWebClient = sdk.RetellWebClient || sdk;
+      const { RetellWebClient } = window.retellClientJsSdk;
       retellClient = new RetellWebClient();
 
       retellClient.on('call_started', () => {
