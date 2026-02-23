@@ -400,10 +400,11 @@
       }
 
       // Load Retell SDK dynamically
-      if (typeof RetellWebClient === 'undefined') {
+      if (!window.RetellClientJsSdk) {
         await loadScript('https://cdn.jsdelivr.net/npm/retell-client-js-sdk@2.0.7/dist/index.umd.js');
       }
-
+      
+      const { RetellWebClient } = window.RetellClientJsSdk;
       retellClient = new RetellWebClient();
 
       retellClient.on('call_started', () => {
