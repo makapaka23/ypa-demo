@@ -399,13 +399,14 @@
         throw new Error('No access token returned');
       }
 
-      // Load Retell SDK dynamically
-      if (!window.retellClientJsSdk) {
-        await loadScript('https://cdn.jsdelivr.net/npm/retell-client-js-sdk@2.0.7/dist/index.umd.js');
-      }
+      await loadScript('https://cdn.jsdelivr.net/npm/retell-client-js-sdk@2.0.7/dist/index.umd.js');
       
-      const { RetellWebClient } = window.retellClientJsSdk;
-      retellClient = new RetellWebClient();  
+      // Log what's available to find the right variable name
+      console.log('SDK globals:', Object.keys(window).filter(k => k.toLowerCase().includes('retell')));
+      
+      const sdk = window.retellClientJsSdk || window.RetellClientJsSdk || window.RetellWebClient;
+      const RetellWebClient = sdk.RetellWebClient || sdk;
+      retellClient = new RetellWebClient();
 
       retellClient.on('call_started', () => {
         btn.classList.remove('connecting');
