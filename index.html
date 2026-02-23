@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YPA — Booking Agent Demo</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/retell-client-js-sdk@latest/dist/index.umd.js"></script>
   <style>
     :root {
       --cream: #f5f0e8;
@@ -34,7 +33,7 @@
       content: '';
       position: fixed;
       inset: 0;
-      background: 
+      background:
         radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 60%),
         radial-gradient(ellipse at 80% 80%, rgba(201,168,76,0.05) 0%, transparent 60%);
       pointer-events: none;
@@ -73,9 +72,7 @@
       letter-spacing: 0.02em;
     }
 
-    .logo span {
-      color: var(--gold);
-    }
+    .logo span { color: var(--gold); }
 
     .tagline {
       font-size: 12px;
@@ -85,11 +82,8 @@
       margin-top: 6px;
     }
 
-    .card-body {
-      padding: 36px 40px;
-    }
+    .card-body { padding: 36px 40px; }
 
-    /* LOGIN FORM */
     #login-section h2 {
       font-family: 'Playfair Display', serif;
       font-size: 20px;
@@ -105,9 +99,7 @@
       line-height: 1.5;
     }
 
-    .field {
-      margin-bottom: 16px;
-    }
+    .field { margin-bottom: 16px; }
 
     .field label {
       display: block;
@@ -131,9 +123,7 @@
       transition: border-color 0.2s;
     }
 
-    .field input:focus {
-      border-color: var(--gold);
-    }
+    .field input:focus { border-color: var(--gold); }
 
     .error-msg {
       font-size: 12px;
@@ -162,7 +152,6 @@
     .btn:active { transform: scale(0.99); }
     .btn:disabled { background: #ccc; cursor: not-allowed; }
 
-    /* CALL SECTION */
     #call-section { display: none; text-align: center; }
 
     #call-section h2 {
@@ -192,15 +181,10 @@
       justify-content: center;
       transition: all 0.3s;
       margin-bottom: 16px;
-      position: relative;
     }
 
     .call-btn svg { width: 36px; height: 36px; }
-
-    .call-btn:hover {
-      background: #2d2d2a;
-      transform: scale(1.05);
-    }
+    .call-btn:hover { background: #2d2d2a; transform: scale(1.05); }
 
     .call-btn.active {
       background: var(--red);
@@ -279,7 +263,6 @@
 
   <div class="card-body">
 
-    <!-- LOGIN -->
     <div id="login-section">
       <h2>Agent Access</h2>
       <p>Enter your credentials to connect with the YPA booking agent.</p>
@@ -295,7 +278,6 @@
       <button class="btn" id="login-btn" onclick="handleLogin()">Continue</button>
     </div>
 
-    <!-- CALL -->
     <div id="call-section">
       <h2>Speak with Our Agent</h2>
       <p>Click the button below to start a live call with the YPA AI booking agent. You can book a property inspection, ask about availability, or make a general enquiry.</p>
@@ -333,10 +315,11 @@
   // ============================================================
   const LAMBDA_URL = 'https://gbihmttnjows5z22ep2kdsyheu0kemfg.lambda-url.ap-southeast-2.on.aws/';
 
+  // Store credentials after login for reuse on each call
+  let storedCredentials = null;
   let retellClient = null;
   let callActive = false;
 
-  // Allow Enter key on login form
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       const loginSection = document.getElementById('login-section');
@@ -372,8 +355,9 @@
         return;
       }
 
-      // Store token and show call UI
-      window._accessToken = data.access_token;
+      // Store credentials for reuse on each call
+      storedCredentials = { username, password };
+
       document.getElementById('login-section').style.display = 'none';
       document.getElementById('call-section').style.display = 'block';
 
@@ -402,18 +386,24 @@
     status.className = 'connecting';
 
     try {
-      // Get a fresh token for each call
+      // Get a fresh access token using stored credentials
       const res = await fetch(LAMBDA_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: 'reuse',
-          password: 'reuse',
-          token: window._accessToken
-        })
+        body: JSON.stringify(storedCredentials)
       });
 
-      // Use stored token directly with Retell SDK
+      const data = await res.json();
+
+      if (!data.access_token) {
+        throw new Error('No access token returned');
+      }
+
+      // Load Retell SDK dynamically
+      if (typeof RetellWebClient === 'undefined') {
+        await loadScript('https://cdn.jsdelivr.net/npm/retell-client-js-sdk@2.0.7/dist/index.umd.js');
+      }
+
       retellClient = new RetellWebClient();
 
       retellClient.on('call_started', () => {
@@ -422,7 +412,6 @@
         status.textContent = 'Call connected';
         status.className = 'connected';
         callActive = true;
-        // Update icon to end call
         document.getElementById('phone-icon').innerHTML = '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>';
       });
 
@@ -437,20 +426,28 @@
         status.className = 'ended';
       });
 
-      await retellClient.startCall({ accessToken: window._accessToken });
+      await retellClient.startCall({ accessToken: data.access_token });
 
     } catch (err) {
       console.error(err);
       resetCallUI();
-      status.textContent = 'Failed to connect — try again';
-      status.className = 'ended';
+      document.getElementById('call-status').textContent = 'Failed to connect — try again';
+      document.getElementById('call-status').className = 'ended';
     }
   }
 
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+
   function endCall() {
-    if (retellClient) {
-      retellClient.stopCall();
-    }
+    if (retellClient) retellClient.stopCall();
     resetCallUI();
   }
 
