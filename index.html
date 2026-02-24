@@ -10,14 +10,11 @@
       --cream: #f5f0e8;
       --dark: #1a1a18;
       --gold: #c9a84c;
-      --gold-light: #e8d5a3;
       --muted: #8a8578;
       --red: #c0392b;
       --green: #27ae60;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--cream);
@@ -28,34 +25,28 @@
       justify-content: center;
       padding: 24px;
     }
-
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background:
-        radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 80%, rgba(201,168,76,0.05) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 80%, rgba(201,168,76,0.05) 0%, transparent 60%);
       pointer-events: none;
     }
-
     .card {
       background: white;
       border-radius: 2px;
       width: 100%;
       max-width: 440px;
-      box-shadow: 0 4px 40px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.08);
       overflow: hidden;
-      position: relative;
     }
-
     .card-header {
       background: var(--dark);
       padding: 36px 40px 32px;
       position: relative;
       overflow: hidden;
     }
-
     .card-header::after {
       content: '';
       position: absolute;
@@ -63,17 +54,13 @@
       height: 2px;
       background: linear-gradient(90deg, var(--gold), transparent);
     }
-
     .logo {
       font-family: 'Playfair Display', serif;
       font-size: 28px;
       font-weight: 600;
       color: white;
-      letter-spacing: 0.02em;
     }
-
     .logo span { color: var(--gold); }
-
     .tagline {
       font-size: 12px;
       color: var(--muted);
@@ -81,26 +68,20 @@
       text-transform: uppercase;
       margin-top: 6px;
     }
-
     .card-body { padding: 36px 40px; }
-
     #login-section h2 {
       font-family: 'Playfair Display', serif;
       font-size: 20px;
       font-weight: 400;
       margin-bottom: 6px;
-      color: var(--dark);
     }
-
     #login-section p {
       font-size: 13px;
       color: var(--muted);
       margin-bottom: 28px;
       line-height: 1.5;
     }
-
     .field { margin-bottom: 16px; }
-
     .field label {
       display: block;
       font-size: 11px;
@@ -109,7 +90,6 @@
       color: var(--muted);
       margin-bottom: 6px;
     }
-
     .field input {
       width: 100%;
       padding: 12px 14px;
@@ -122,16 +102,8 @@
       outline: none;
       transition: border-color 0.2s;
     }
-
     .field input:focus { border-color: var(--gold); }
-
-    .error-msg {
-      font-size: 12px;
-      color: var(--red);
-      margin-bottom: 14px;
-      display: none;
-    }
-
+    .error-msg { font-size: 12px; color: var(--red); margin-bottom: 14px; display: none; }
     .btn {
       width: 100%;
       padding: 14px;
@@ -144,30 +116,24 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
+      transition: background 0.2s;
       margin-top: 4px;
     }
-
     .btn:hover { background: #2d2d2a; }
-    .btn:active { transform: scale(0.99); }
     .btn:disabled { background: #ccc; cursor: not-allowed; }
-
     #call-section { display: none; text-align: center; }
-
     #call-section h2 {
       font-family: 'Playfair Display', serif;
       font-size: 20px;
       font-weight: 400;
       margin-bottom: 6px;
     }
-
-    #call-section p {
+    #call-section > p {
       font-size: 13px;
       color: var(--muted);
       margin-bottom: 32px;
       line-height: 1.6;
     }
-
     .call-btn {
       width: 100px;
       height: 100px;
@@ -182,26 +148,15 @@
       transition: all 0.3s;
       margin-bottom: 16px;
     }
-
     .call-btn svg { width: 36px; height: 36px; }
     .call-btn:hover { background: #2d2d2a; transform: scale(1.05); }
-
-    .call-btn.active {
-      background: var(--red);
-      animation: pulse 2s infinite;
-    }
-
-    .call-btn.connecting {
-      background: var(--gold);
-      animation: pulse 1s infinite;
-    }
-
+    .call-btn.active { background: var(--red); animation: pulse 2s infinite; }
+    .call-btn.connecting { background: var(--gold); animation: pulse 1s infinite; }
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(192,57,43,0.4); }
       70% { box-shadow: 0 0 0 16px rgba(192,57,43,0); }
       100% { box-shadow: 0 0 0 0 rgba(192,57,43,0); }
     }
-
     #call-status {
       font-size: 12px;
       letter-spacing: 0.1em;
@@ -209,26 +164,11 @@
       color: var(--muted);
       min-height: 20px;
     }
-
     #call-status.connected { color: var(--green); }
     #call-status.connecting { color: var(--gold); }
-    #call-status.ended { color: var(--muted); }
-
-    .instructions {
-      margin-top: 28px;
-      padding: 16px;
-      background: var(--cream);
-      border-radius: 2px;
-      text-align: left;
-    }
-
-    .instructions p {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 0;
-      line-height: 1.6;
-    }
-
+    .divider { height: 1px; background: #e8e3d8; margin: 28px 0; }
+    .instructions { padding: 16px; background: var(--cream); border-radius: 2px; text-align: left; }
+    .instructions p { font-size: 12px; color: var(--muted); line-height: 1.6; }
     .instructions strong {
       color: var(--dark);
       display: block;
@@ -237,13 +177,6 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-
-    .divider {
-      height: 1px;
-      background: #e8e3d8;
-      margin: 28px 0;
-    }
-
     .footer {
       text-align: center;
       font-size: 11px;
@@ -260,7 +193,6 @@
     <div class="logo">YP<span>A</span></div>
     <div class="tagline">Property Agent — Booking Demo</div>
   </div>
-
   <div class="card-body">
 
     <div id="login-section">
@@ -275,57 +207,52 @@
         <input type="password" id="password" placeholder="Enter password">
       </div>
       <div class="error-msg" id="error-msg">Incorrect credentials. Please try again.</div>
-      <button class="btn" id="login-btn" onclick="handleLogin()">Continue</button>
+      <button class="btn" id="login-btn">Continue</button>
     </div>
 
     <div id="call-section">
       <h2>Speak with Our Agent</h2>
-      <p>Click the button below to start a live call with the YPA AI booking agent. You can book a property inspection, ask about availability, or make a general enquiry.</p>
-
-      <button class="call-btn" id="call-btn" onclick="toggleCall()">
+      <p>Click the button below to start a live call with the YPA AI booking agent.</p>
+      <button class="call-btn" id="call-btn">
         <svg id="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
         </svg>
       </button>
-
       <div id="call-status">Ready to call</div>
-
       <div class="divider"></div>
-
       <div class="instructions">
         <strong>Try asking</strong>
         <p>
           "I'd like to book a property inspection tomorrow at 2 PM"<br>
           "What times are available next Monday?"<br>
-          "I'm interested in selling my home and want some advice"
+          "I'm thinking about selling my home"
         </p>
       </div>
     </div>
 
   </div>
-
-  <div class="footer">
-    YPA — Your Property Agent &nbsp;·&nbsp; Demo Environment
-  </div>
+  <div class="footer">YPA — Your Property Agent &nbsp;·&nbsp; Demo Environment</div>
 </div>
 
-<script>
+<script type="module">
   // ============================================================
-  // REPLACE THIS WITH YOUR ACTUAL LAMBDA FUNCTION URL
+  // REPLACE WITH YOUR LAMBDA FUNCTION URL
   // ============================================================
   const LAMBDA_URL = 'https://gbihmttnjows5z22ep2kdsyheu0kemfg.lambda-url.ap-southeast-2.on.aws/';
 
-  // Store credentials after login for reuse on each call
-  let storedCredentials = null;
+  // Import Retell SDK via esm.sh which handles all dependencies automatically
+  const { RetellWebClient } = await import('https://esm.sh/retell-client-js-sdk@2.0.7');
+
   let retellClient = null;
   let callActive = false;
+  let storedCredentials = null;
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      const loginSection = document.getElementById('login-section');
-      if (loginSection.style.display !== 'none') handleLogin();
-    }
+  // Wire up login
+  document.getElementById('login-btn').addEventListener('click', handleLogin);
+  document.getElementById('password').addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleLogin();
   });
+  document.getElementById('call-btn').addEventListener('click', toggleCall);
 
   async function handleLogin() {
     const username = document.getElementById('username').value.trim();
@@ -334,7 +261,6 @@
     const errorMsg = document.getElementById('error-msg');
 
     if (!username || !password) return;
-
     btn.disabled = true;
     btn.textContent = 'Checking...';
     errorMsg.style.display = 'none';
@@ -345,7 +271,6 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
       });
-
       const data = await res.json();
 
       if (res.status === 401 || data.error) {
@@ -355,9 +280,7 @@
         return;
       }
 
-      // Store credentials for reuse on each call
       storedCredentials = { username, password };
-
       document.getElementById('login-section').style.display = 'none';
       document.getElementById('call-section').style.display = 'block';
 
@@ -373,7 +296,7 @@
     if (callActive) {
       endCall();
     } else {
-      startCall();
+      await startCall();
     }
   }
 
@@ -386,45 +309,32 @@
     status.className = 'connecting';
 
     try {
-      // Get a fresh access token using stored credentials
+      // Get fresh access token
       const res = await fetch(LAMBDA_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(storedCredentials)
       });
-
       const data = await res.json();
 
-      if (!data.access_token) {
-        throw new Error('No access token returned');
-      }
+      if (!data.access_token) throw new Error('No access token');
 
-      await loadScript('https://unpkg.com/eventemitter3@latest/dist/eventemitter3.umd.min.js');
-      await loadScript('https://cdn.jsdelivr.net/npm/livekit-client/dist/livekit-client.umd.min.js');
-      await loadScript('https://cdn.jsdelivr.net/npm/retell-client-js-sdk@2.0.7/dist/index.umd.js');
-
-
-      const { RetellWebClient } = window.retellClientJsSdk;
       retellClient = new RetellWebClient();
 
       retellClient.on('call_started', () => {
         btn.classList.remove('connecting');
         btn.classList.add('active');
-        status.textContent = 'Call connected';
+        status.textContent = 'Call connected — click to end';
         status.className = 'connected';
         callActive = true;
-        document.getElementById('phone-icon').innerHTML = '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>';
+        document.getElementById('phone-icon').innerHTML =
+          '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>';
       });
 
-      retellClient.on('call_ended', () => {
-        resetCallUI();
-      });
-
-      retellClient.on('error', (err) => {
-        console.error('Retell error:', err);
+      retellClient.on('call_ended', () => resetCallUI());
+      retellClient.on('error', () => {
         resetCallUI();
         status.textContent = 'Connection failed — try again';
-        status.className = 'ended';
       });
 
       await retellClient.startCall({ accessToken: data.access_token });
@@ -433,18 +343,7 @@
       console.error(err);
       resetCallUI();
       document.getElementById('call-status').textContent = 'Failed to connect — try again';
-      document.getElementById('call-status').className = 'ended';
     }
-  }
-
-  function loadScript(src) {
-    return new Promise((resolve, reject) => {
-      const s = document.createElement('script');
-      s.src = src;
-      s.onload = resolve;
-      s.onerror = reject;
-      document.head.appendChild(s);
-    });
   }
 
   function endCall() {
@@ -454,12 +353,12 @@
 
   function resetCallUI() {
     const btn = document.getElementById('call-btn');
-    const status = document.getElementById('call-status');
     btn.classList.remove('active', 'connecting');
-    status.textContent = 'Call ended — click to call again';
-    status.className = 'ended';
+    document.getElementById('call-status').textContent = 'Call ended — click to call again';
+    document.getElementById('call-status').className = '';
     callActive = false;
-    document.getElementById('phone-icon').innerHTML = '<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>';
+    document.getElementById('phone-icon').innerHTML =
+      '<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>';
   }
 </script>
 
