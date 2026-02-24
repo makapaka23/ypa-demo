@@ -399,9 +399,10 @@
         throw new Error('No access token returned');
       }
 
-      await loadScript('https://cdn.jsdelivr.net/npm/eventemitter3@5.0.1/umd/eventemitter3.min.js');
-      await loadScript('https://cdn.jsdelivr.net/npm/livekit-client@2.5.0/dist/livekit-client.umd.min.js');
+      await loadScript('https://unpkg.com/eventemitter3@latest/dist/eventemitter3.umd.min.js');
+      await loadScript('https://cdn.jsdelivr.net/npm/livekit-client/dist/livekit-client.umd.min.js');
       await loadScript('https://cdn.jsdelivr.net/npm/retell-client-js-sdk@2.0.7/dist/index.umd.js');
+
 
       const { RetellWebClient } = window.retellClientJsSdk;
       retellClient = new RetellWebClient();
