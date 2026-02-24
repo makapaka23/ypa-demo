@@ -400,12 +400,9 @@
       }
 
       await loadScript('https://cdn.jsdelivr.net/npm/retell-client-js-sdk@2.0.7/dist/index.umd.js');
-      
-      // Log what's available to find the right variable name
-      console.log('SDK globals:', Object.keys(window).filter(k => k.toLowerCase().includes('retell')));
-      
-      const { RetellWebClient } = window.retellClientJsSdk;
-      retellClient = new RetellWebClient();
+      const sdk = window.retellClientJsSdk;
+      console.log('SDK keys:', Object.keys(sdk));
+      retellClient = new sdk.RetellWebClient();
 
       retellClient.on('call_started', () => {
         btn.classList.remove('connecting');
